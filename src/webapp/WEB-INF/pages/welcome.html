@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div>
+    <h1>VISITOR PAGE</h1>
+    <p>Hello!!! You're on the page for visitors</p>
+    <p>If you are user, please, go to the login page</p>
+    <form th:action="@{/login}" method="get">
+        <button type="submit">login page</button>
+    </form>
+    <p>If you have not registration, please, go to the registration page</p>
+    <form th:action="@{/registration}" method="get">
+        <button type="submit">registration page</button>
+    </form>
+</div>
+</body>
+</html>
