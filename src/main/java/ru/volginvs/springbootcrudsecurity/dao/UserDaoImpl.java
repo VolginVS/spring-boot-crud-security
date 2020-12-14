@@ -2,7 +2,6 @@ package ru.volginvs.springbootcrudsecurity.dao;
 
 import org.springframework.stereotype.Repository;
 import ru.volginvs.springbootcrudsecurity.model.User;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
