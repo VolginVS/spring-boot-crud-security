@@ -94,7 +94,6 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <div id="userHolderr" data-uuu="ololo">ggg</div>
                                 <tr th:each="user : ${userList}">
                                     <td id="userHolder" data-uuu="ololo" th:text="${user.getId()}"></td>
                                     <td th:text="${user.getUsername()}"></td>
@@ -105,9 +104,68 @@
                                     <td th:text="${user.getAge()}"></td>
                                     <td th:text="${user.getRoles()}"></td>
                                     <td>
-                                        <button id="editHref" th:attr="data-username =${user}" type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" th:attr="data-target='#upd' + ${user.getId()}">
                                             Edit
                                         </button>
+                                        <div class="modal" th:attr="id='upd' + ${user.getId()}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div id ="modalOutput" class="modal-body">
+                                                        <form action="#" th:action="@{/user-edit}" th:object="${userEdit}" method="post">
+                                                            <input  th:value="${user.getId()}" id="idEdit" placeholder="id">
+                                                            <table>
+                                                                <tr>
+                                                                    <td><label for="username">username</label></td>
+                                                                    <td><input type="text" th:value="${user.getUsername()}" id="usernameEdit" placeholder="username" ></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><label for="password">password</label></td>
+                                                                    <td><input type="text" th:value="${user.getPassword()}" id="passwordEdit" placeholder="password" ></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><label for="firstName">firstName</label></td>
+                                                                    <td><input type="text" th:value="${user.getFirstName()}" id="firstNameEdit" placeholder="firstname" ></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><label for="lastName">lastName</label></td>
+                                                                    <td><input type="text" th:value="${user.getLastName()}" id="lastNameEdit" placeholder="lastname"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><label for="age">Age</label></td>
+                                                                    <td><input type="text" th:value="${user.getAge()}" id="ageEdit" placeholder="Age"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><label for="email">email</label></td>
+                                                                    <td><input type="text" th:value="${user.getEmail()}" id="emailEdit" placeholder="E-Mail"></td>
+                                                                </tr>
+                                                            </table>
+                                                            <ul>
+                                                                <li th:each="role : ${roleSet}">
+                                                                    <div>
+                                                                        <input type="checkbox" th:field="*{roles}" th:value="${role.id}">
+                                                                        <label th:text="${role.name}"></label>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                            <div>
+                                                                <input type="hidden" th:value="${user}">
+                                                                <input type="submit" value="Update">
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </td>
                                     <td><a th:href="@{user-delete/{id}(id=${user.getId()})}">Delete</a></td>
                                 </tr>
@@ -166,81 +224,5 @@
     </div>
 </div>
 
-
-
-
-<div class="modal" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div id ="modalOutput" class="modal-body">
-                <form action="#" th:action="@{/user-edit}" th:object="${user}" method="post">
-                    <input  th:field="*{id}" id="idEdit" placeholder="id">
-                    <table>
-                        <tr>
-                            <td><label for="username">username</label></td>
-                            <td><input type="text" th:field="*{username}" id="usernameEdit" placeholder="username"></td>
-                        </tr>
-                        <tr>
-                            <td><label for="password">password</label></td>
-                            <td><input type="text" th:field="*{password}" id="passwordEdit" placeholder="password" ></td>
-                        </tr>
-                        <tr>
-                            <td><label for="firstName">firstName</label></td>
-                            <td><input type="text" th:field="*{firstName}" id="firstNameEdit" placeholder="firstname"></td>
-                        </tr>
-                        <tr>
-                            <td><label for="lastName">lastName</label></td>
-                            <td><input type="text" th:field="*{lastName}" id="lastNameEdit" placeholder="lastname"></td>
-                        </tr>
-                        <tr>
-                            <td><label for="age">Age</label></td>
-                            <td><input type="text" th:field="*{age}" id="ageEdit" placeholder="Age"></td>
-                        </tr>
-                        <tr>
-                            <td><label for="email">email</label></td>
-                            <td><input type="text" th:field="*{email}" id="emailEdit" placeholder="E-Mail"></td>
-                        </tr>
-                    </table>
-                    <ul>
-                        <li th:each="role : ${roleSet}">
-                            <div>
-                                <input type="checkbox" th:field="*{roles}" th:value="${role.id}">
-                                <label th:text="${role.name}"></label>
-                            </div>
-                        </li>
-                    </ul>
-                    <div>
-                        <input type="submit" value="Update">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
-</div-->
-<script>
-    document.getElementById("userTable").onclick = function(){
-        let param = event.target.dataset.username
-        console.log(param)
-        let parsedParam = JSON.parse(param)
-        document.getElementById("idEdit").setAttribute('value', parsedParam.id)
-        document.getElementById("usernameEdit").setAttribute('value', parsedParam.username)
-        document.getElementById("passwordEdit").setAttribute('value', parsedParam.password)
-        document.getElementById("firstNameEdit").setAttribute('value', parsedParam.firstName)
-        document.getElementById("lastNameEdit").setAttribute('value', parsedParam.lastName)
-        document.getElementById("ageEdit").setAttribute('value', parsedParam.age)
-        document.getElementById("emailEdit").setAttribute('value', parsedParam.email)
-    }
-</script>
 </body>
 </html>

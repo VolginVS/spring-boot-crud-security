@@ -58,14 +58,16 @@ public class UserController {
     }
 
     @GetMapping(value = "admin")
-    public String getAdminCrudTool(Model model, User user) {
+    public String getAdminCrudTool(Model model, User userEdit) {
         List<User> userList = userService.getUserList();
+        Set<Role> roleSet = roleService.getAllRoles();
         model.addAttribute("userList", userList);
+        model.addAttribute("roleSet", roleSet);
         return "users";
     }
 
     @PostMapping(value = "user-create")
-    public String createUser(@ModelAttribute("user") User user) {
+    public String createUser(@ModelAttribute("userForm") User user) {
         userService.save(user);
         return "redirect:/admin";
     }
