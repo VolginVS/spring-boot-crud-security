@@ -144,12 +144,15 @@ public class User implements UserDetails{
 
     @Override
     public String toString() {
-        return "user{" +
-                "id=" + id +
-                ", name='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", age=" + age +
-                ", email='" + email + '\'' +
+        return "{" +
+                "\"id\":" + id +
+                ",\"username\":\"" + username + '\"' +
+                ",\"password\":\"" + password + '\"' +
+                ",\"firstName\":\"" + firstName + '\"' +
+                ",\"lastName\":\"" + lastName + '\"' +
+                ",\"age\":" + age +
+                ",\"email\":\"" + email + '\"' +
+                ",\"roles\":\"" + roles + '\"' +
                 '}';
     }
 
