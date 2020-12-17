@@ -37,6 +37,8 @@ public class UserController {
 
     @GetMapping(value = "/registration")
     public String getRegistrationPage(Model model) {
+        Set<Role> roleSet = roleService.getAllRoles();
+        model.addAttribute("roleSet", roleSet);
         model.addAttribute("userForm", new User());
         return "registration";
     }
