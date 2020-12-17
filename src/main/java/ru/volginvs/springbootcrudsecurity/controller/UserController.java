@@ -2,6 +2,7 @@ package ru.volginvs.springbootcrudsecurity.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -58,9 +59,14 @@ public class UserController {
     }
 
     @GetMapping(value = "admin")
-    public String getAdminCrudTool(Model model, User userEdit) {
+    public String getAdminCrudTool(Model model, User user) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username= auth.getName();
+
+        User activeUser = userService.getByUsername(username);
         List<User> userList = userService.getUserList();
         Set<Role> roleSet = roleService.getAllRoles();
+        model.addAttribute("activeUser", activeUser);
         model.addAttribute("userList", userList);
         model.addAttribute("roleSet", roleSet);
         return "users";
